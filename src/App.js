@@ -28,7 +28,16 @@ class App extends Component {
     this.state = {
       list,
     };
+
+    this.onDismiss = this.onDismiss.bind(this);
   }
+
+  onDismiss(id) {
+    const isNotId = item => item.objectID !== id;
+    const updatedList = this.state.list.filter(isNotId);
+    this.setState({ list: updatedList });
+}
+
   render() {
     return (
       <div className="App">
@@ -42,7 +51,7 @@ class App extends Component {
               <span> {item.points} </span>
               <span>
                 <button
-                  onClick={() +> this.onDismiss(item.objectID)}
+                  onClick={() => this.onDismiss(item.objectID)}
                   type="button"
                 >
                   Dismiss
