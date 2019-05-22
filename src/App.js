@@ -24,7 +24,6 @@ const isSearched = searchTerm => item =>
   item.title.toLowerCase().includes(searchTerm.toLowerCase());
 
 class App extends Component {
-
   constructor(props) {
     super(props);
 
@@ -42,6 +41,7 @@ class App extends Component {
     const updatedList = this.state.list.filter(isNotId);
     this.setState({ list: updatedList });
 }
+
   onSearchChange(event) {
     this.setState({ searchTerm: event.target.value });
   }
@@ -50,15 +50,42 @@ class App extends Component {
     const { searchTerm, list } = this.state;
     return (
       <div className="App">
-        <form>
-          <input
-          type="text"
+        <Search
           value={searchTerm}
           onChange={this.onSearchChange}
-          />
-        </form>
-          {list.filter(isSearched(searchTerm)).map(item =>
-            <div key={item.objectID}>
+        />
+        <Table
+          list={list}
+          pattern={searchTerm}
+          onDismiss={this.onDismiss}
+        />
+      </div>
+    );
+  }
+}
+
+class Search extends Component {
+  render() {
+    const { value, onChange } = this.props;
+    return(
+      <form>
+        <input
+        type="text"
+        value={value}
+        onChange={onChange}
+        />
+      </form>
+    );
+  }
+}
+
+class Table extends Component {
+  render() {
+    const { list, pattern, onDismiss } = this.props;
+    return(
+      <div>
+        {list.filter(isSearched(pattern)).map(item =>
+          <div key={item.objectID}>
             <span>
               <a href={item.url}>{item.title}</a>
             </span>
@@ -67,14 +94,14 @@ class App extends Component {
             <span> {item.points} </span>
             <span>
               <button
-                onClick={() => this.onDismiss(item.objectID)}
+                onClick={() => onDismiss(item.objectID)}
                 type="button"
               >
                 Dismiss
               </button>
             </span>
           </div>
-          )}
+        )}
       </div>
     );
   }
