@@ -1,3 +1,9 @@
+# Initial approach to "The Road to Learn React" course by Robin Wieruch
+
+Probably stalled.
+
+___
+
 This project was bootstrapped with [Create React App](https://github.com/facebookincubator/create-react-app).
 
 Below you will find some information on how to perform common tasks.<br>
